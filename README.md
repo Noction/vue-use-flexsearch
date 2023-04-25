@@ -1,4 +1,4 @@
-# useAsyncValidator
+# useFlexSearch
 
 Wrapper for [`Flexsearch`](https://github.com/nextapps-de/flexsearch).
 
