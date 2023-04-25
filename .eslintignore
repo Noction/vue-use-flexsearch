@@ -1,0 +1,6 @@
+dist
+coverage
+*rc.js
+*.json
+*.yaml
+*.md
