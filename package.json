@@ -1,7 +1,7 @@
 {
-  "name": "vue-use-flexsearch",
+  "name": "@noction/vue-use-flexsearch",
   "type": "module",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Vue wrapper for Flexsearch",
   "license": "MIT",
   "main": "dist/index.cjs",

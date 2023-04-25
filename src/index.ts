@@ -2,22 +2,21 @@ import FlexSearch, { Document, Index, SimpleDocumentSearchResultSetUnit } from '
 import { Ref, computed, ref, watch } from 'vue-demi'
 
 /**
- * name of action.
  *
- * @see description
- * @param query
- * @param providedIndex
- * @param store
- * @param searchOptions
- * @param limit
+ * @param query The keyword which we are looking for
+ * @param providedIndex The {@link https://github.com/nextapps-de/flexsearch#index.add Index} or {@link https://github.com/nextapps-de/flexsearch#document.add Document} from Flexsearch
+ * @param store The list of item where we are looking
+ * @param searchOptions Search {@link https://github.com/nextapps-de/flexsearch#search-options options}
+ * @param limit Max number of results to be returned
+ *
  */
-export const useFlexSearch = <T extends {id: string| number}>(
+export function useFlexSearch <T extends {id: string| number}> (
   query: Ref<string>,
   providedIndex: Ref<Index> | Ref<Document<any>> | null,
   store?: Ref<Array<T>>,
   searchOptions = {},
   limit = 10
-) => {
+) {
   const index = ref<Index | Document<any> | null>(null)
   const isDocument = ref(false)
 
