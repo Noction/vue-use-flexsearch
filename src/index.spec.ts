@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker'
 import { useFlexSearch } from './index'
 import { Document, Index } from 'flexsearch'
 import { Ref, ref } from 'vue-demi'
-import {  beforeEach, describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 function dummyDocumentIndex (indexFields: string[]) {
   return new Document({
@@ -129,4 +129,5 @@ describe('useFlexSearch', () => {
       expect(results.value).toHaveLength(countRandomType)
     })
   })
+
 })
