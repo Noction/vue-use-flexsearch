@@ -1,5 +1,9 @@
 # useFlexSearch
 
+[![NPM version](https://img.shields.io/npm/v/@noction/vue-use-flexsearch.svg?style=flat)](https://npmjs.com/package/@noction/vue-use-flexsearch)
+[![NPM downloads](https://img.shields.io/npm/dm/@noction/vue-use-flexsearch.svg?style=flat)](https://npmjs.com/package/@noction/vue-use-flexsearch)
+[![codecov](https://codecov.io/gh/Noction/vue-use-flexsearch/branch/main/graph/badge.svg?token=C5NGW1BC2N)](https://codecov.io/gh/Noction/vue-use-flexsearch)
+
 Wrapper for [`Flexsearch`](https://github.com/nextapps-de/flexsearch).
 
 ## Install 
