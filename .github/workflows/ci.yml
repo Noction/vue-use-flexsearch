@@ -46,7 +46,7 @@ jobs:
         run: pnpm build
 
       - name: Running eslint
-        run: eslint
+        run: npx eslint
 
       - name: Running typecheck
         run: pnpm run typecheck
@@ -89,7 +89,7 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Installing modules
-        run: pnpm i -r
+        run: pnpm i
 
       - name: Running tests
         run: pnpm run test:coverage
