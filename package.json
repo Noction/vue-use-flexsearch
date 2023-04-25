@@ -31,6 +31,7 @@
   },
   "author": "",
   "dependencies": {
+    "@types/flexsearch": "0.7.3",
     "flexsearch": "0.7.21",
     "vue-demi": "latest"
   },
@@ -45,6 +46,7 @@
     }
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
     "rimraf": "^5.0.0",
     "typescript": "^5.0.4",
     "unbuild": "^1.2.1",
