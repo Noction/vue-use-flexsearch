@@ -5,20 +5,19 @@ dependencies:
     specifier: 0.7.3
     version: 0.7.3
   '@vue/composition-api':
-    specifier: ^1.0.0-rc.1
+    specifier: ^1.7.1
     version: 1.7.1(vue@3.2.47)
   flexsearch:
     specifier: 0.7.21
     version: 0.7.21
   vue-demi:
     specifier: latest
-    version: 0.14.0(vue@3.2.47)
+    version: 0.14.0(@vue/composition-api@1.7.1)(vue@3.2.47)
 
 devDependencies:
   '@faker-js/faker':
     specifier: ^7.6.0
     version: 7.6.0
-<<<<<<< HEAD
   '@typescript-eslint/eslint-plugin':
     specifier: ^5.59.1
     version: 5.59.1(@typescript-eslint/parser@5.59.1)(eslint@8.39.0)(typescript@5.0.4)
@@ -37,8 +36,6 @@ devDependencies:
   lint-staged:
     specifier: ^13.2.1
     version: 13.2.1
-=======
->>>>>>> 4303ca02eed36d2751d57e1f5f9bbd54bf242345
   rimraf:
     specifier: ^5.0.0
     version: 5.0.0
@@ -53,7 +50,7 @@ devDependencies:
     version: 1.2.1
   vite:
     specifier: ^4.3.1
-    version: 4.3.1
+    version: 4.3.1(@types/node@18.16.0)
   vitest:
     specifier: ^0.30.1
     version: 0.30.1
@@ -472,7 +469,6 @@ packages:
     dev: true
     optional: true
 
-<<<<<<< HEAD
   /@eslint-community/eslint-utils@4.4.0(eslint@8.39.0):
     resolution: {integrity: sha512-1/sA4dwrzBAyeUoQ6oxahHKmrZvsnLCg4RfxW3ZFGGmQkSNQPFNLV9CUEFQP1x9EYXHTo5p6xdhZM1Ne9p/AfA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
@@ -510,14 +506,11 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
-=======
->>>>>>> 4303ca02eed36d2751d57e1f5f9bbd54bf242345
   /@faker-js/faker@7.6.0:
     resolution: {integrity: sha512-XK6BTq1NDMo9Xqw/YkYyGjSsg44fbNwYRx7QK2CuoQgyy+f1rrTDHoExVM5PsyXCtfl2vs2vVJ0MN0yN6LppRw==}
     engines: {node: '>=14.0.0', npm: '>=6.0.0'}
     dev: true
 
-<<<<<<< HEAD
   /@humanwhocodes/config-array@0.11.8:
     resolution: {integrity: sha512-UybHIJzJnR5Qc/MsD9Kr+RpO2h+/P1GhOwdiLPXK5TWk5sgTdu88bTD9UP+CKbPPh5Rni1u0GjAdYQLemG8g+g==}
     engines: {node: '>=10.10.0'}
@@ -543,8 +536,6 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-=======
->>>>>>> 4303ca02eed36d2751d57e1f5f9bbd54bf242345
   /@jridgewell/gen-mapping@0.3.3:
     resolution: {integrity: sha512-HLhSWOLRi875zjjMG/r+Nv0oCW8umGb0BgEhyX3dDX3egwZtB8PqLnjz3yedt8R5StBrzcg4aBpnh8UA9D1BoQ==}
     engines: {node: '>=6.0.0'}
@@ -716,7 +707,6 @@ packages:
     resolution: {integrity: sha512-HXwADeHEP4exXkCIwy2n1+i0f1ilP1ETQOH5KDOugjkTFZPntWo0Gr8stZOaebkxsdx+k0X/K6obU/+it07ocg==}
     dev: false
 
-<<<<<<< HEAD
   /@types/istanbul-lib-coverage@2.0.4:
     resolution: {integrity: sha512-z/QT1XN4K4KYuslS23k62yDIDLwLFkzxOuMplDtObz0+y7VqJCaO2o+SPwHCvLFZh7xazvvoor2tA/hPz9ee7g==}
     dev: true
@@ -725,8 +715,6 @@ packages:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
     dev: true
 
-=======
->>>>>>> 4303ca02eed36d2751d57e1f5f9bbd54bf242345
   /@types/node@18.16.0:
     resolution: {integrity: sha512-BsAaKhB+7X+H4GnSjGhJG9Qi8Tw+inU9nJDwmD5CgOmBLEI6ArdhikpLX7DjbjDRDTbqZzU2LSQNZg8WGPiSZQ==}
     dev: true
@@ -2964,38 +2952,6 @@ packages:
       - terser
     dev: true
 
-  /vite@4.3.1:
-    resolution: {integrity: sha512-EPmfPLAI79Z/RofuMvkIS0Yr091T2ReUoXQqc5ppBX/sjFRhHKiPPF/R46cTdoci/XgeQpB23diiJxq5w30vdg==}
-    engines: {node: ^14.18.0 || >=16.0.0}
-    hasBin: true
-    peerDependencies:
-      '@types/node': '>= 14'
-      less: '*'
-      sass: '*'
-      stylus: '*'
-      sugarss: '*'
-      terser: ^5.4.0
-    peerDependenciesMeta:
-      '@types/node':
-        optional: true
-      less:
-        optional: true
-      sass:
-        optional: true
-      stylus:
-        optional: true
-      sugarss:
-        optional: true
-      terser:
-        optional: true
-    dependencies:
-      esbuild: 0.17.18
-      postcss: 8.4.23
-      rollup: 3.21.0
-    optionalDependencies:
-      fsevents: 2.3.2
-    dev: true
-
   /vite@4.3.1(@types/node@18.16.0):
     resolution: {integrity: sha512-EPmfPLAI79Z/RofuMvkIS0Yr091T2ReUoXQqc5ppBX/sjFRhHKiPPF/R46cTdoci/XgeQpB23diiJxq5w30vdg==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -3095,7 +3051,7 @@ packages:
       - terser
     dev: true
 
-  /vue-demi@0.14.0(vue@3.2.47):
+  /vue-demi@0.14.0(@vue/composition-api@1.7.1)(vue@3.2.47):
     resolution: {integrity: sha512-gt58r2ogsNQeVoQ3EhoUAvUsH9xviydl0dWJj7dabBC/2L4uBId7ujtCwDRD0JhkGsV1i0CtfLAeyYKBht9oWg==}
     engines: {node: '>=12'}
     hasBin: true
@@ -3107,6 +3063,7 @@ packages:
       '@vue/composition-api':
         optional: true
     dependencies:
+      '@vue/composition-api': 1.7.1(vue@3.2.47)
       vue: 3.2.47
     dev: false
 

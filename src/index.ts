@@ -1,7 +1,4 @@
-import FlexSearch, {
-  Document,
-  Index, SimpleDocumentSearchResultSetUnit
-} from 'flexsearch'
+import FlexSearch, { Document, Index, SimpleDocumentSearchResultSetUnit } from 'flexsearch'
 import { Ref, computed, ref, watch } from 'vue-demi'
 
 /**
@@ -27,22 +24,15 @@ export const useFlexSearch = <T extends {id: string| number}>(
   watch(
     [query, providedIndex, query],
     () => {
-      if (!providedIndex && !store)
-        console.warn(
-          'A FlexSearch index and store was not provided. Your search results will be empty.'
-        )
-      else if (!providedIndex)
-        console.warn(
-          'A FlexSearch index was not provided. Your search results will be empty.'
-        )
-      else if (!store)
-        console.warn(
-          'A FlexSearch store was not provided. Your search results will be empty.'
-        )
+      if (!providedIndex && !store) {
+        console.warn('A FlexSearch index and store was not provided. Your search results will be empty.')
+      } else if (!providedIndex) {
+        console.warn('A FlexSearch index was not provided. Your search results will be empty.')
+      } else if (!store) {
+        console.warn('A FlexSearch store was not provided. Your search results will be empty.')
+      }
     },
-    {
-      immediate: true
-    }
+    { immediate: true }
   )
 
   watch(
@@ -61,9 +51,7 @@ export const useFlexSearch = <T extends {id: string| number}>(
         index.value = providedIndex.value
       }
     },
-    {
-      immediate: true
-    }
+    { immediate: true }
   )
 
   return computed(() => {
