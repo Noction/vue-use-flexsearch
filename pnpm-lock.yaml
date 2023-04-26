@@ -1,9 +1,6 @@
 lockfileVersion: '6.0'
 
 dependencies:
-  '@types/flexsearch':
-    specifier: 0.7.3
-    version: 0.7.3
   '@vue/composition-api':
     specifier: ^1.7.1
     version: 1.7.1(vue@3.2.47)
@@ -18,6 +15,9 @@ devDependencies:
   '@faker-js/faker':
     specifier: ^7.6.0
     version: 7.6.0
+  '@types/flexsearch':
+    specifier: 0.7.3
+    version: 0.7.3
   '@typescript-eslint/eslint-plugin':
     specifier: ^5.59.1
     version: 5.59.1(@typescript-eslint/parser@5.59.1)(eslint@8.39.0)(typescript@5.0.4)
@@ -50,7 +50,7 @@ devDependencies:
     version: 1.2.1
   vite:
     specifier: ^4.3.2
-    version: 4.3.2(@types/node@18.16.0)
+    version: 4.3.2
   vitest:
     specifier: ^0.30.1
     version: 0.30.1
@@ -705,7 +705,7 @@ packages:
 
   /@types/flexsearch@0.7.3:
     resolution: {integrity: sha512-HXwADeHEP4exXkCIwy2n1+i0f1ilP1ETQOH5KDOugjkTFZPntWo0Gr8stZOaebkxsdx+k0X/K6obU/+it07ocg==}
-    dev: false
+    dev: true
 
   /@types/istanbul-lib-coverage@2.0.4:
     resolution: {integrity: sha512-z/QT1XN4K4KYuslS23k62yDIDLwLFkzxOuMplDtObz0+y7VqJCaO2o+SPwHCvLFZh7xazvvoor2tA/hPz9ee7g==}
@@ -2950,6 +2950,38 @@ packages:
       - sugarss
       - supports-color
       - terser
+    dev: true
+
+  /vite@4.3.2:
+    resolution: {integrity: sha512-9R53Mf+TBoXCYejcL+qFbZde+eZveQLDYd9XgULILLC1a5ZwPaqgmdVpL8/uvw2BM/1TzetWjglwm+3RO+xTyw==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    hasBin: true
+    peerDependencies:
+      '@types/node': '>= 14'
+      less: '*'
+      sass: '*'
+      stylus: '*'
+      sugarss: '*'
+      terser: ^5.4.0
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      less:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+    dependencies:
+      esbuild: 0.17.18
+      postcss: 8.4.23
+      rollup: 3.21.0
+    optionalDependencies:
+      fsevents: 2.3.2
     dev: true
 
   /vite@4.3.2(@types/node@18.16.0):
