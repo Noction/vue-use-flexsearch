@@ -90,6 +90,8 @@ module.exports = {
         memberSyntaxSortOrder: ['none', 'all', 'single', 'multiple']
       }
     ],
+    // disallow static inline style attributes
+    'sort-keys': 'error',
     // disallow Space Before Blocks
     'space-before-blocks': 'error',
     // requires or disallows a space before function parenthesis.

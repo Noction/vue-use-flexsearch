@@ -4,22 +4,34 @@ import { Document, Index } from 'flexsearch'
 import { Ref, ref } from 'vue-demi'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-interface User { id: number, firstName: string, lastName: string }
+interface User {
+    id: number,
+    firstName: string,
+    lastName: string
+}
 
-interface Animal { id: number, type: string }
+interface Animal {
+    id: number,
+    type: string
+}
 
 function dummyDocumentIndex (indexFields: string[]) {
   return new Document({
+    charset: 'latin:extra',
     document: {
       id: 'id',
       index: indexFields
-    }
+    },
+    preset: 'match',
+    tokenize: 'forward'
   })
 }
 
 function dummyIndex () {
   return new Index({
-    preset: 'match'
+    charset: 'latin:extra',
+    preset: 'match',
+    tokenize: 'forward'
   })
 }
 
@@ -27,28 +39,32 @@ function dummyDataUser () {
   const userStore: Ref<User[]> = ref([])
   const providedIndex = ref(dummyDocumentIndex(['firstName', 'lastName', 'email']))
 
-  for (let i = 0; i < faker.datatype.number(); i++) {
-    const user = { firstName: faker.name.firstName(), lastName: faker.name.lastName(), id: i }
+  for (let i = 0; i < faker.datatype.number({ max: 50 }); i++) {
+    const user = {
+      firstName: faker.helpers.unique(faker.name.firstName),
+      id: i,
+      lastName: faker.helpers.unique(faker.name.lastName)
+    }
 
     userStore.value.push(user)
     providedIndex.value.add(user)
   }
 
-  return { userStore, providedIndex }
+  return { providedIndex, userStore  }
 }
 
 function dummyDataAnimal () {
-  const vegetableStore: Ref<Animal[]> = ref([])
+  const animalStore: Ref<Animal[]> = ref([])
   const providedIndex = ref(dummyIndex())
 
   for (let i = 0; i < faker.datatype.number(); i++) {
     const animal = { id: i, type: faker.animal.type() }
 
-    vegetableStore.value.push(animal)
+    animalStore.value.push(animal)
     providedIndex.value.add(animal.id, animal.type)
   }
 
-  return { vegetableStore, providedIndex }
+  return { animalStore, providedIndex }
 }
 
 beforeEach(() => {
@@ -64,7 +80,7 @@ describe('useFlexSearch', () => {
     it('Should get 1 result on searching by firstName', () => {
       const { userStore, providedIndex } = dummyDataUser()
       const query = ref('')
-      const results = useFlexSearch(query, providedIndex, userStore)
+      const { results }  = useFlexSearch(query, providedIndex, userStore)
       const expectedItem = faker.helpers.arrayElement(userStore.value)
 
       query.value = expectedItem.firstName
@@ -75,7 +91,7 @@ describe('useFlexSearch', () => {
     it('Should get 1 result on searching by lastName', () => {
       const { userStore, providedIndex } = dummyDataUser()
       const query = ref('')
-      const results = useFlexSearch(query, providedIndex, userStore)
+      const { results } = useFlexSearch(query, providedIndex, userStore)
       const expectedItem = faker.helpers.arrayElement(userStore.value)
 
       query.value = expectedItem.lastName
@@ -86,7 +102,7 @@ describe('useFlexSearch', () => {
     it('Should get nothing in results for empty query', () => {
       const { userStore, providedIndex } = dummyDataUser()
       const query = ref('')
-      const results = useFlexSearch(query, providedIndex, userStore)
+      const { results } = useFlexSearch(query, providedIndex, userStore)
 
       query.value = ''
 
@@ -110,7 +126,7 @@ describe('useFlexSearch', () => {
       const consoleSpy = vi.spyOn(console, 'warn')
       const store = [{ id: 0 }]
 
-      useFlexSearch(query, null, ref(store))
+      useFlexSearch(query, ref(null), ref(store))
 
       expect(consoleSpy).toHaveBeenCalledWith(
         'A FlexSearch index was not provided. Your search results will be empty.'
@@ -121,7 +137,7 @@ describe('useFlexSearch', () => {
       const query = ref('')
       const consoleSpy = vi.spyOn(console, 'warn')
 
-      useFlexSearch(query, null)
+      useFlexSearch(query, ref(null))
 
       expect(consoleSpy).toHaveBeenCalledWith(
         'A FlexSearch index and store was not provided. Your search results will be empty.'
@@ -131,16 +147,27 @@ describe('useFlexSearch', () => {
 
   describe('Index', () => {
     it('Should get N result one query change by type of Animal', () => {
-      const { vegetableStore, providedIndex } = dummyDataAnimal()
+      const { animalStore, providedIndex } = dummyDataAnimal()
       const query = ref('')
-      const results = useFlexSearch(query, providedIndex, vegetableStore)
-      const expectedItem = faker.helpers.arrayElement(vegetableStore.value)
+      const { results } = useFlexSearch(query, providedIndex, animalStore)
+      const expectedItem = faker.helpers.arrayElement(animalStore.value)
       const randomType = expectedItem.type
-      const countRandomType = vegetableStore.value.filter(({ type }) => type === randomType).length
+      const countRandomType = animalStore.value.filter(({ type }) => type === randomType).length
 
       query.value = randomType
 
       expect(results.value).toHaveLength(countRandomType)
+    })
+    it('should get warn for no index', function () {
+      const { animalStore, providedIndex } = dummyDataAnimal()
+      const consoleSpy = vi.spyOn(console, 'warn')
+
+      useFlexSearch(ref(''), providedIndex, animalStore)
+      useFlexSearch(ref(''), ref(null), animalStore)
+
+      expect(consoleSpy).toHaveBeenCalledWith(
+        'A FlexSearch index was not provided. Your search results will be empty.'
+      )
     })
   })
 })

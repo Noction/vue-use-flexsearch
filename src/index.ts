@@ -1,4 +1,4 @@
-import FlexSearch, { Document, Index, SimpleDocumentSearchResultSetUnit } from 'flexsearch'
+import { Document, Id, Index, IndexSearchResult, SearchOptions, SimpleDocumentSearchResultSetUnit } from 'flexsearch'
 import { Ref, computed, ref, watch } from 'vue-demi'
 
 /**
@@ -10,62 +10,71 @@ import { Ref, computed, ref, watch } from 'vue-demi'
  * @param limit Max number of results to be returned
  *
  */
-export function useFlexSearch <T extends {id: string| number}> (
+
+export function useFlexSearch<T extends Record<'id', Id>, D = unknown> (
   query: Ref<string>,
-  providedIndex: Ref<Index> | Ref<Document<any>> | null,
+  providedIndex: Ref<Index | Document<D> | null>,
   store?: Ref<Array<T>>,
-  searchOptions = {},
+  searchOptions: SearchOptions = {},
   limit = 10
 ) {
-  const index = ref<Index | Document<any> | null>(null)
-  const isDocument = ref(false)
+  const index = ref<Index | Document<D> | null>(null)
 
-  watch(
-    [query, providedIndex, query],
-    () => {
-      if (!providedIndex && !store) {
-        console.warn('A FlexSearch index and store was not provided. Your search results will be empty.')
-      } else if (!providedIndex) {
-        console.warn('A FlexSearch index was not provided. Your search results will be empty.')
-      } else if (!store) {
-        console.warn('A FlexSearch store was not provided. Your search results will be empty.')
-      }
-    },
-    { immediate: true }
-  )
+  watch([providedIndex, store], ([newProvidedIndex, newStore]) => {
+    if (!newProvidedIndex && !newStore) {
+      console.warn('A FlexSearch index and store was not provided. Your search results will be empty.')
+    } else if (!newProvidedIndex) {
+      console.warn('A FlexSearch index was not provided. Your search results will be empty.')
+    } else if (!newStore) {
+      console.warn('A FlexSearch store was not provided. Your search results will be empty.')
+    }
+  }, { immediate: true })
 
-  watch(
-    [providedIndex],
-    () => {
-      if (!providedIndex) {
-        index.value = null
-        return
-      }
+  watch([providedIndex], newProvidedIndex => {
+    if (!newProvidedIndex) return index.value = null
 
-      if (providedIndex.value instanceof FlexSearch.Index) {
-        index.value = providedIndex.value
-      }
-      if (providedIndex.value instanceof FlexSearch.Document) {
-        isDocument.value = true
-        index.value = providedIndex.value
-      }
-    },
-    { immediate: true }
-  )
+    if (newProvidedIndex instanceof Index) return index.value = newProvidedIndex
 
-  return computed(() => {
-    if (!query || !index.value || !store) return []
-    if (query) {
+    index.value = providedIndex.value
+  }, { immediate: true })
+
+  return {
+    results:  computed(() => {
+      const results: T[] = []
+
+      if (!query.value || !index.value || !store?.value) return results
       const rawResults = index.value.search(query.value, limit, searchOptions)
 
-      return rawResults.map(rawResult => {
-        if (isDocument.value) {
-          const [id] = (rawResult as SimpleDocumentSearchResultSetUnit).result
+      if (rawResults.length === 0) return results
 
-          return store.value.find(storeItem => storeItem.id === id)
+      if (isIndexSearchResult(rawResults)) {
+        rawResults.forEach(id => {
+          const item = store.value.find(item => item.id === id)
+
+          if (item) {
+            results.push(item)
+          }
+        })
+        return results
+      }
+
+      const usedIds = new Set<Id>()
+
+      for (const rawResult of rawResults) {
+        for (const id of rawResult.result) {
+          if (!usedIds.has(id)) {
+            usedIds.add(id)
+            const item = store.value.find(item => item.id === id)
+
+            if (item) results.push(item)
+          }
         }
-        return store.value.find(storeItem => storeItem.id === rawResult)
-      })
-    }
-  })
+      }
+      return results
+    })
+  }
+}
+
+const isIndexSearchResult = (value: SimpleDocumentSearchResultSetUnit[] | IndexSearchResult): value is IndexSearchResult => {
+  return ['string', 'number'].includes(typeof value[0])
 }

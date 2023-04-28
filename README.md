@@ -15,13 +15,13 @@ npm i -S flexsearch @noction/vue-use-flexsearch
 ## API
 
 ```ts
-function useFlexSearch <T extends {id: string| number}> (
+function useFlexSearch <T extends Record<"id", Id>, D = unknown> (
     query: Ref<string>,
-    providedIndex: Ref<Index> | Ref<Document<any>> | null,
+    providedIndex: Ref<Index | Document<D> | null>,
     store?: Ref<Array<T>>,
-    searchOptions = {},
+    searchOptions: SearchOptions = {},
     limit = 10
-): Object[]
+): { results: ComputedRef<T[]> }
 ```
 
 By utilizing the _useFlexSearch_ composable, you can provide your search query, index, and store as inputs, and obtain the results as an array. This optimizes searches by memoizing them, ensuring efficient searching.
@@ -53,8 +53,12 @@ const store = [
 ]
 const index = new Index({ preset: 'match' })
 
+index.add(store[0])
+index.add(store[1])
+index.add(store[2])
+
 const query = ref('')
-const results = useFlexSearch(query, index, store)
+const { results } = useFlexSearch(query, index, store)
 </script>
 
 <template>
