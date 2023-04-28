@@ -1,7 +1,7 @@
 {
   "name": "@noction/vue-use-flexsearch",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Vue wrapper for Flexsearch",
   "license": "MIT",
   "main": "dist/index.cjs",
@@ -31,7 +31,8 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "lint": "eslint",
-    "typecheck": "vue-tsc --noEmit"
+    "typecheck": "vue-tsc --noEmit",
+    "prepare": "npx simple-git-hooks"
   },
   "author": "",
   "dependencies": {
