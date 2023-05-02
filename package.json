@@ -1,7 +1,7 @@
 {
   "name": "@noction/vue-use-flexsearch",
   "type": "module",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Vue wrapper for Flexsearch",
   "license": "MIT",
   "main": "dist/index.cjs",
@@ -26,7 +26,7 @@
     "build": "unbuild",
     "build:watch": "npm run build -- --watch",
     "prebuild": "rimraf dist",
-    "prepublish": "npm run build",
+    "prepublishOnly": "npm run build",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
