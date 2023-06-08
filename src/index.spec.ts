@@ -39,11 +39,11 @@ function dummyDataUser () {
   const userStore: Ref<User[]> = ref([])
   const providedIndex = ref(dummyDocumentIndex(['firstName', 'lastName', 'email']))
 
-  for (let i = 0; i < faker.datatype.number({ max: 50 }); i++) {
+  for (let i = 0; i < faker.number.int({ max: 10 }); i++) {
     const user = {
-      firstName: faker.helpers.unique(faker.name.firstName),
+      firstName: faker.person.firstName(),
       id: i,
-      lastName: faker.helpers.unique(faker.name.lastName)
+      lastName: faker.person.lastName()
     }
 
     userStore.value.push(user)
@@ -57,7 +57,7 @@ function dummyDataAnimal () {
   const animalStore: Ref<Animal[]> = ref([])
   const providedIndex = ref(dummyIndex())
 
-  for (let i = 0; i < faker.datatype.number(); i++) {
+  for (let i = 0; i < faker.number.int({ max: 10 }); i++) {
     const animal = { id: i, type: faker.animal.type() }
 
     animalStore.value.push(animal)

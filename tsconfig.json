@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+      "baseUrl": ".",
       "target": "es2018",
       "module": "esnext",
       "lib": ["esnext", "dom"],
@@ -12,6 +13,9 @@
       "skipDefaultLibCheck": true,
       "types": [
         "vite/client"
-      ]
+      ],
+      "paths": {
+        "flexsearch": ["node_modules/@types/flexsearch"]
+      }
     }
   }
