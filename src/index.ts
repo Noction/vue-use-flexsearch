@@ -1,5 +1,7 @@
-import { Document, Id, Index, IndexSearchResult, SearchOptions, SimpleDocumentSearchResultSetUnit } from 'flexsearch'
-import { Ref, computed, ref, watch } from 'vue-demi'
+import type { Document, Id, IndexSearchResult, SearchOptions, SimpleDocumentSearchResultSetUnit } from 'flexsearch'
+import type { Ref } from 'vue-demi'
+import { Index } from 'flexsearch'
+import { computed, ref, watch } from 'vue-demi'
 
 /**
  *
@@ -11,44 +13,50 @@ import { Ref, computed, ref, watch } from 'vue-demi'
  *
  */
 
-export function useFlexSearch<T extends Record<'id', Id>, D = unknown> (
+export function useFlexSearch<T extends Record<'id', Id>, D = unknown>(
   query: Ref<string>,
   providedIndex: Ref<Index | Document<D> | null>,
   store?: Ref<Array<T>>,
   searchOptions: SearchOptions = {},
-  limit = 10
+  limit = 10,
 ) {
   const index = ref<Index | Document<D> | null>(null)
 
   watch([providedIndex, store], ([newProvidedIndex, newStore]) => {
     if (!newProvidedIndex && !newStore) {
       console.warn('A FlexSearch index and store was not provided. Your search results will be empty.')
-    } else if (!newProvidedIndex) {
+    }
+    else if (!newProvidedIndex) {
       console.warn('A FlexSearch index was not provided. Your search results will be empty.')
-    } else if (!newStore) {
+    }
+    else if (!newStore) {
       console.warn('A FlexSearch store was not provided. Your search results will be empty.')
     }
   }, { immediate: true })
 
-  watch([providedIndex], newProvidedIndex => {
-    if (!newProvidedIndex) return index.value = null
+  watch([providedIndex], (newProvidedIndex) => {
+    if (!newProvidedIndex)
+      return index.value = null
 
-    if (newProvidedIndex instanceof Index) return index.value = newProvidedIndex
+    if (newProvidedIndex instanceof Index)
+      return index.value = newProvidedIndex
 
     index.value = providedIndex.value
   }, { immediate: true })
 
   return {
-    results:  computed(() => {
+    results: computed(() => {
       const results: T[] = []
 
-      if (!query.value || !index.value || !store?.value) return results
+      if (!query.value || !index.value || !store?.value)
+        return results
       const rawResults = index.value.search(query.value, limit, searchOptions)
 
-      if (rawResults.length === 0) return results
+      if (rawResults.length === 0)
+        return results
 
       if (isIndexSearchResult(rawResults)) {
-        rawResults.forEach(id => {
+        rawResults.forEach((id) => {
           const item = store.value.find(item => item.id === id)
 
           if (item) {
@@ -66,15 +74,16 @@ export function useFlexSearch<T extends Record<'id', Id>, D = unknown> (
             usedIds.add(id)
             const item = store.value.find(item => item.id === id)
 
-            if (item) results.push(item)
+            if (item)
+              results.push(item)
           }
         }
       }
       return results
-    })
+    }),
   }
 }
 
-const isIndexSearchResult = (value: SimpleDocumentSearchResultSetUnit[] | IndexSearchResult): value is IndexSearchResult => {
+function isIndexSearchResult(value: SimpleDocumentSearchResultSetUnit[] | IndexSearchResult): value is IndexSearchResult {
   return ['string', 'number'].includes(typeof value[0])
 }
