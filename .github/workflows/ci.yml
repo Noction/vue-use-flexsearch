@@ -1,4 +1,4 @@
-name: 'ci'
+name: ci
 
 on:
   push:
@@ -16,13 +16,13 @@ jobs:
       - name: Set node version to 18
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 22
 
       - uses: pnpm/action-setup@v2
         name: Install pnpm
         id: pnpm-install
         with:
-          version: 8
+          version: 10
           run_install: false
 
       - name: Get pnpm store directory
@@ -60,13 +60,13 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 22
 
       - uses: pnpm/action-setup@v2
         name: Install pnpm
         id: pnpm-install
         with:
-          version: 8
+          version: 10
           run_install: false
 
       - name: Get pnpm store directory

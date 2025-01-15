@@ -1,7 +1,7 @@
 import type { Document, Id, IndexSearchResult, SearchOptions, SimpleDocumentSearchResultSetUnit } from 'flexsearch'
-import type { Ref } from 'vue-demi'
+import type { Ref } from 'vue'
 import { Index } from 'flexsearch'
-import { computed, ref, watch } from 'vue-demi'
+import { computed, ref, watch } from 'vue'
 
 /**
  *
