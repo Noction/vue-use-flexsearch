@@ -36,18 +36,11 @@
   },
   "author": "",
   "dependencies": {
-    "flexsearch": "0.7.31",
-    "vue-demi": "latest"
+    "flexsearch": "0.7.31"
   },
   "peerDependencies": {
-    "@vue/composition-api": "^1.7.2",
     "flexsearch": "0.7.21",
     "vue": "^3.3.4"
-  },
-  "peerDependenciesMeta": {
-    "@vue/composition-api": {
-      "optional": true
-    }
   },
   "devDependencies": {
     "@antfu/eslint-config": "^3.14.0",
@@ -64,8 +57,5 @@
     "vitest": "^0.34.6",
     "vue": "^3.5.13",
     "vue-tsc": "^2.2.0"
-  },
-  "overrides": {
-    "eslint": "^9.18.0"
   }
 }

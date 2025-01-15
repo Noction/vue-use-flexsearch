@@ -1,8 +1,8 @@
-import type { Ref } from 'vue-demi'
+import type { Ref } from 'vue'
 import { faker } from '@faker-js/faker'
 import { Document, Index } from 'flexsearch'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { ref } from 'vue-demi'
+import { ref } from 'vue'
 import { useFlexSearch } from './index'
 
 type User = {
