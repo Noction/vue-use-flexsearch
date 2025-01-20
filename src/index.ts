@@ -35,11 +35,15 @@ export function useFlexSearch<T extends Record<'id', Id>, D = unknown>(
   }, { immediate: true })
 
   watch([providedIndex], (newProvidedIndex) => {
-    if (!newProvidedIndex)
-      return index.value = null
+    if (!newProvidedIndex) {
+      index.value = null
+      return
+    }
 
-    if (newProvidedIndex instanceof Index)
-      return index.value = newProvidedIndex
+    if (newProvidedIndex instanceof Index) {
+      index.value = newProvidedIndex
+      return
+    }
 
     index.value = providedIndex.value
   }, { immediate: true })
