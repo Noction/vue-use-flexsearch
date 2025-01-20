@@ -32,7 +32,8 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "lint": "eslint",
-    "typecheck": "vue-tsc --noEmit",
+    "lint:fix": "eslint --fix",
+    "type:check": "vue-tsc --noEmit",
     "prepare": "npx simple-git-hooks"
   },
   "author": "",
