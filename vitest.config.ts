@@ -1,11 +1,15 @@
-import { defineConfig } from 'vitest/config'
+import { configDefaults, defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
+    root: 'src',
     outputFile: './test-report.junit.xml',
-    reporters: ['junit'],
+    reporters: ['junit', 'verbose'],
     coverage: {
-      reporter: ['cobertura'],
+      exclude: [
+        ...configDefaults.exclude,
+      ],
+      reporter: ['cobertura', 'text'],
     },
   },
 })

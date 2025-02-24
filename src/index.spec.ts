@@ -9,6 +9,7 @@ type User = {
   id: number
   firstName: string
   lastName: string
+  email: string
 }
 
 type Animal = {
@@ -40,11 +41,12 @@ function dummyDataUser() {
   const userStore: Ref<User[]> = ref([])
   const providedIndex = ref(dummyDocumentIndex(['firstName', 'lastName', 'email']))
 
-  for (let i = 0; i < faker.number.int({ max: 10 }); i++) {
+  for (let i = 0; i < faker.number.int({ min: 1, max: 10 }); i++) {
     const user = {
       firstName: faker.person.firstName(),
       id: i,
       lastName: faker.person.lastName(),
+      email: faker.internet.email(),
     }
 
     userStore.value.push(user)
@@ -58,7 +60,7 @@ function dummyDataAnimal() {
   const animalStore: Ref<Animal[]> = ref([])
   const providedIndex = ref(dummyIndex())
 
-  for (let i = 0; i < faker.number.int({ max: 10 }); i++) {
+  for (let i = 0; i < faker.number.int({ min: 1, max: 10 }); i++) {
     const animal = { id: i, type: faker.animal.type() }
 
     animalStore.value.push(animal)
@@ -86,7 +88,12 @@ describe('useFlexSearch', () => {
 
       query.value = expectedItem.firstName
 
-      expect(results.value).toHaveLength(1)
+      const exactMatches = results.value.filter(
+        item => item.id === expectedItem.id,
+      )
+
+      expect(exactMatches).toHaveLength(1)
+      expect(exactMatches[0]).toEqual(expectedItem)
     })
 
     it('should get 1 result on searching by lastName', () => {
@@ -96,6 +103,17 @@ describe('useFlexSearch', () => {
       const expectedItem = faker.helpers.arrayElement(userStore.value)
 
       query.value = expectedItem.lastName
+
+      expect(results.value).toHaveLength(1)
+    })
+
+    it('should get 1 result on searching by email', () => {
+      const { userStore, providedIndex } = dummyDataUser()
+      const query = ref('')
+      const { results } = useFlexSearch(query, providedIndex, userStore)
+      const expectedItem = faker.helpers.arrayElement(userStore.value)
+
+      query.value = expectedItem.email
 
       expect(results.value).toHaveLength(1)
     })
@@ -151,13 +169,14 @@ describe('useFlexSearch', () => {
       const { animalStore, providedIndex } = dummyDataAnimal()
       const query = ref('')
       const { results } = useFlexSearch(query, providedIndex, animalStore)
-      const expectedItem = faker.helpers.arrayElement(animalStore.value)
-      const randomType = expectedItem.type
+      const randomType = faker.helpers.arrayElement(animalStore.value).type
       const countRandomType = animalStore.value.filter(({ type }) => type === randomType).length
 
       query.value = randomType
 
-      expect(results.value).toHaveLength(countRandomType)
+      const filteredResults = results.value.filter(({ type }) => type === randomType)
+
+      expect(filteredResults).toHaveLength(countRandomType)
     })
     it('should get warn for no index', () => {
       const { animalStore, providedIndex } = dummyDataAnimal()
