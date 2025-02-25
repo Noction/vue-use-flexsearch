@@ -34,7 +34,8 @@
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "type:check": "vue-tsc --noEmit",
-    "prepare": "npx simple-git-hooks"
+    "prepare": "npx simple-git-hooks",
+    "release": "bumpp"
   },
   "author": "",
   "dependencies": {
@@ -49,6 +50,7 @@
     "@faker-js/faker": "^9.4.0",
     "@types/flexsearch": "0.7.6",
     "@vitest/coverage-v8": "^3.0.2",
+    "bumpp": "^10.0.3",
     "eslint": "^9.18.0",
     "lint-staged": "^15.4.1",
     "rimraf": "^6.0.1",
