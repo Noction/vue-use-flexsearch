@@ -25,6 +25,7 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: pnpm
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Setup
         run: npm i -g @antfu/ni
@@ -38,7 +39,7 @@ jobs:
         run: nci
 
       - name: Publish
-        run: npm publish --access public --no-git-checks
+        run: npm publish --provenance --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
           NPM_CONFIG_PROVENANCE: true
