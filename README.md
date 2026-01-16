@@ -9,20 +9,20 @@ Wrapper for [`Flexsearch`](https://github.com/nextapps-de/flexsearch).
 ## Install
 
 ```bash
-npm i -S flexsearch @noction/vue-use-flexsearch
+pnpm add flexsearch @noction/vue-use-flexsearch
 ```
 
 ## API
 
 ```ts
 // eslint-disable-next-line unused-imports/no-unused-vars
-function useFlexSearch<T extends Record<'id', Id>, D = unknown>(
+function useFlexSearch<T extends Record<"id", Id>, D = unknown>(
   query: Ref<string>,
   providedIndex: Ref<Index | Document<D> | null>,
   store?: Ref<Array<T>>,
   searchOptions: SearchOptions = {},
   limit = 10,
-): { results: ComputedRef<T[]> }
+): { results: ComputedRef<T[]> };
 ```
 
 By utilizing the _useFlexSearch_ composable, you can provide your search query, index, and store as inputs, and obtain the results as an array. This optimizes searches by memoizing them, ensuring efficient searching.
@@ -43,27 +43,27 @@ This code snippet creates a text input field and utilizes FlexSearch to execute 
 
 ```vue
 <script setup>
-import { useFlexSearch } from '@noction/vue-use-flexsearch'
-import { Index } from 'flexsearch'
-import { ref, shallowRef } from 'vue'
+import { useFlexSearch } from "@noction/vue-use-flexsearch";
+import { Index } from "flexsearch";
+import { ref, shallowRef } from "vue";
 
 const store = ref([
-  { id: 1, title: 'The Jungle Book' },
-  { id: 2, title: 'Dracula' },
-  { id: 3, title: 'Shōgun' },
-])
+  { id: 1, title: "The Jungle Book" },
+  { id: 2, title: "Dracula" },
+  { id: 3, title: "Shōgun" },
+]);
 
-const index = shallowRef(new Index({ preset: 'match' }))
+const index = shallowRef(new Index({ preset: "match" }));
 
-store.value.forEach(item => index.value.add(item.id, item.title))
+store.value.forEach((item) => index.value.add(item.id, item.title));
 
-const query = ref('')
-const { results } = useFlexSearch(query, index, store)
+const query = ref("");
+const { results } = useFlexSearch(query, index, store);
 </script>
 
 <template>
   <div>
-    <input v-model="query">
+    <input v-model="query" />
     <h1>Results</h1>
     <ul>
       <li v-for="result in results" :key="result.id" v-text="result.title" />
