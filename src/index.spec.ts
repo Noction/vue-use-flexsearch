@@ -71,6 +71,7 @@ function dummyDataAnimal() {
 }
 
 beforeEach(() => {
+  faker.seed(123)
   console.warn = vi.fn()
 })
 

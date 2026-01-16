@@ -6,12 +6,10 @@
     "module": "esnext",
     "moduleResolution": "node",
     "paths": {
-      "flexsearch": ["node_modules/@types/flexsearch"]
+      "flexsearch": ["node_modules/@types/flexsearch"],
     },
     "resolveJsonModule": true,
-    "types": [
-      "vite/client"
-    ],
+    "types": [],
     "strict": true,
     "strictFunctionTypes": true,
     "strictNullChecks": true,
@@ -25,6 +23,6 @@
     "useUnknownInCatchVariables": true,
     "esModuleInterop": true,
     "skipDefaultLibCheck": true,
-    "skipLibCheck": true
-  }
+    "skipLibCheck": true,
+  },
 }
